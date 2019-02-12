@@ -1,13 +1,26 @@
 :-dynamic matriz/3.
 
-matriz([1,2,3],1,3).
+%Ejemplos prueba.
+matrizK([[ 4, 0, 1, 3],
+        [ -1, 3, 1, 2],
+        [ 5, 1, 0, -1]]).
+
+matrizL([[ 0, 2, 3, -1],
+         [ -1, 0, 2, 2],
+         [ -1, 0, -1, 1]]).
+
+matrizM([[ 1, 1],
+         [ 2, 1],
+         [ -1, 0],
+         [ 3, -2]]).
+%
 
 %Recibe una lista y regresa su longitud.
 longitud([],0).
 longitud([_|Cola],Long+1):-
          longitud(Cola,Long).
 
-%Recibe dos listas y realiza la comparaciÛn de sus longitudes
+%Recibe dos listas y realiza la comparaci√≥n de sus longitudes
 comparaLong(ListaA,ListaB):-
     longitud(ListaA,X),
     L1 is X,
@@ -18,7 +31,7 @@ comparaLong(ListaA,ListaB):-
 %Predicados para la suma
 
 %Realiza la suma elemento a elemento entre las listas
-%cosidera que recibe listas sin listas internas, solo n˙meros
+%cosidera que recibe listas sin listas internas, solo n√∫meros
 sumaLista([],[],[]).
 sumaLista([A|ColaA],[B|ColaB],[C|ColaC]):-
          comparaLong(ColaA,ColaB),
@@ -51,7 +64,7 @@ resta([A|ColaA],[B|ColaB],[C|ColaC]):-
     restaLista(A,B,C),
     resta(ColaA,ColaB,ColaC).
 
-%Metodos para la transposiciÛn
+%Metodos para la transposici√≥n
 
 % Recibe una lista y cada uno de sus elementos lo guarda dentro de una
 % lista propia. En otras palabreas, pasa de renglon a fila.
@@ -83,7 +96,7 @@ transpone([A|ColaA],B):-
          listaXelem(A,X),
          rellenaLista(ColaA,X,B).
 
-%Predicados para la multiplicaciÛn
+%Predicados para la multiplicaci√≥n
 
 
 multiplicaRenglones([],[],[]).
@@ -99,14 +112,14 @@ multiplicaRenglones([A|ColaA],[B|ColaB],[C|ColaC]):-
          multiplicaRenglones(ColaA,[B|ColaB],ColaC).
 
 
-% Transpone la segunda matriz para asÌ poder operar las listas de forma
-% m·s directa
+% Transpone la segunda matriz para as√≠ poder operar las listas de forma
+% m√°s directa
 multiplica([A|ColaA],[B|ColaB],C):-
          transpone([B|ColaB],[X|ColaX]),
          comparaLong(A,X),
          multiplicaRenglones([A|ColaA],[X|ColaX],C),!.
 
-% Recibe dos listas y en la tercera devuelve la multiplicaciÛn elemento
+% Recibe dos listas y en la tercera devuelve la multiplicaci√≥n elemento
 % a elemento.
 multiplicaLista([],[],[]).
 multiplicaLista([A|ColaA],[B|ColaB],[C|ColaC]):-
@@ -119,4 +132,20 @@ sumaListaInterna([],0).
 sumaListaInterna([A|ColaA],B):-
          sumaListaInterna(ColaA,X),
          B is X + A.
+
+% Imprime de esta manera: matrizK(X),matrizL(Y),suma(X,Y,Z),imprime(Z).
+% (en el caso de la suma). Pero es igual para las dem√°s operaciones.
+imprime([]).
+
+imprime([[X|B]|C]):-
+
+    imprime([X|B]),
+    nl,
+    imprime(C).
+
+imprime([X|C]):-
+    write(" "),
+    write(X),
+    write(" "),
+    imprime(C).
 
